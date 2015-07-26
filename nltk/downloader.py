@@ -854,7 +854,10 @@ class Downloader(object):
                 if isinstance(child, Collection):
                     queue.extend(child.children)
                 else:
-                    packages[child.id] = child
+                    try:
+                        packages[child.id] = child
+                    except AttributeError:
+                        print('child has no attribute id')
             collection.packages = packages.values()
 
         # Flush the status cache
